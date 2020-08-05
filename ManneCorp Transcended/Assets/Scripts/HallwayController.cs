@@ -35,6 +35,7 @@ public class HallwayController : MonoBehaviour
         if (restart && player.transform.position == initialLocation)
         {
             player.GetComponent<FirstPersonController>().enabled = true;
+            player.GetComponent<FirstPersonController>().ReInitMouseLook();
             restart = false;
             Debug.Log("restarted");
         }
