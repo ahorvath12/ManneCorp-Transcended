@@ -7,7 +7,7 @@ public class LoopingController : MonoBehaviour
 {
     public GameObject player, otherDoor, placeholderStart, placeholder, placeholderEnd, changingPainting;
     public Material[] plantsMats;
-    public GameObject[] lights, lightsFake, paintingsPhase1, paintingsPhase2, paintingsPhase3, paintingsPhase4;
+    public GameObject[] dolls, lights, lightsFake, paintingsPhase1, paintingsPhase2, paintingsPhase3, paintingsPhase4;
 
     bool canExit, restart, startLoop, slideForward;
     int phase, lightsInd;
@@ -35,8 +35,8 @@ public class LoopingController : MonoBehaviour
             player.GetComponent<FirstPersonController>().ReInitMouseLook();
 
             restart = false;
-            if (lightsInd > 0)
-                ChangeLights(lightsFake, colors[lightsInd - 1]);
+            ChangeLights(lightsFake, colors[lightsInd]);
+            
         }
 
         if (canExit && Input.GetKeyDown("e"))
@@ -44,6 +44,8 @@ public class LoopingController : MonoBehaviour
             player.GetComponent<FirstPersonController>().enabled = false;
             Debug.Log("starting loop");
             startLoop = true;
+            
+
         }
 
         //start player teleportationg
@@ -52,16 +54,19 @@ public class LoopingController : MonoBehaviour
             player.transform.position = Vector3.Lerp(player.transform.position, placeholderStart.transform.position, Time.deltaTime * moveSpeed);
             player.transform.rotation = Quaternion.Lerp(player.transform.rotation, placeholderStart.transform.rotation, Time.deltaTime * moveSpeed);
         }
+        //teleport
         if(startLoop && Vector3.Distance(player.transform.position, placeholderStart.transform.position) <= 0.1f)
         {
             phase++;
-            lightsInd++;
             player.transform.position = placeholder.transform.position;
             player.transform.rotation = placeholder.transform.rotation;
             startLoop = false;
             slideForward = true;
             otherDoor.GetComponent<Animator>().SetBool("open", true);
             lastTimeChecked = Time.time;
+
+            if (phase == 2 || phase == 3)
+                lightsInd++;
         }
 
         //move player through door
@@ -81,8 +86,10 @@ public class LoopingController : MonoBehaviour
         switch (phase)
         {
             case 1:
+                dolls[phase].SetActive(true);
                 break;
             case 2:
+                dolls[phase].SetActive(true);
                 plantRend.materials = SwitchPlantMat(plantRend, plantsMats[0]);
                 foreach (GameObject painting in paintingsPhase1)
                 {
@@ -91,6 +98,7 @@ public class LoopingController : MonoBehaviour
                 ChangeLights(lights, colors[lightsInd]);
                 break;
             case 3:
+                dolls[phase].SetActive(true);
                 plantRend.materials = SwitchPlantMat(plantRend, plantsMats[1]);
                 foreach (GameObject painting in paintingsPhase2)
                 {
@@ -107,11 +115,15 @@ public class LoopingController : MonoBehaviour
                 
                 break;
             case 5:
+                dolls[phase-1].SetActive(true);
+                for (int i = phase-2; i >= 0; i--)
+                {
+                    dolls[i].SetActive(false);
+                }
                 foreach (GameObject painting in paintingsPhase4)
                 {
                     painting.SetActive(true);
                 }
-
                 ChangeLights(lights, colors[lightsInd]);
                 break;
         }

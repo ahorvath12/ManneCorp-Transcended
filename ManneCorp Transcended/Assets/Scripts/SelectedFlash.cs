@@ -7,7 +7,7 @@ public class SelectedFlash : MonoBehaviour
     public int redCol = 250, greenCol = 250, blueCol;
 
 
-    GameObject selectedObject;
+    //GameObject selectedObject;
     bool lookingAtObject = false;
     bool flashingIn = true;
     bool startedFlashing = false;
@@ -18,18 +18,19 @@ public class SelectedFlash : MonoBehaviour
     {
         if (lookingAtObject)
         {
-            selectedObject.GetComponent<Renderer>().material.color = new Color32((byte) redCol, (byte) greenCol, (byte) blueCol, 25);
+            GetComponent<Renderer>().material.color = new Color32((byte) redCol, (byte) greenCol, (byte) blueCol, 255);
         }
     }
 
     private void OnTriggerEnter()
     {
-        selectedObject = GameObject.Find(CastingToObject.selectedObject);
+        //selectedObject = GameObject.Find(CastingToObject.selectedObject);
         lookingAtObject = true;
         if (!startedFlashing)
         {
             startedFlashing = true;
             StartCoroutine(FlashObject());
+
         }
     }
 
@@ -38,7 +39,7 @@ public class SelectedFlash : MonoBehaviour
         startedFlashing = false;
         lookingAtObject = false;
         StopCoroutine(FlashObject());
-        selectedObject.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 255);
+        GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 255);
     }
 
     IEnumerator FlashObject()
