@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickUpItem : MonoBehaviour
 {
     public bool unlocksDoor;
     public GameObject door;
+    public bool pickUp;
 
-    bool pickUp;
-    
+    private GameObject pressE;
+
+    private void Start()
+    {
+        pressE = GameObject.Find("PressE");
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,8 +25,9 @@ public class PickUpItem : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             GetComponent<SelectedFlash>().enabled = false;
             GetComponent<Renderer>().enabled = false;
+            pressE.GetComponent<Text>().enabled = false;
 
-            if(unlocksDoor)
+            if (unlocksDoor)
             {
                 door.GetComponent<DoorController>().locked = false;
             }
@@ -30,10 +37,12 @@ public class PickUpItem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         pickUp = true;
+        pressE.GetComponent<Text>().enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         pickUp = false;
+        pressE.GetComponent<Text>().enabled = false;
     }
 }

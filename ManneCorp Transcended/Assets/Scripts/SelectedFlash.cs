@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectedFlash : MonoBehaviour
 {
     public int redCol = 250, greenCol = 250, blueCol;
-
 
     //GameObject selectedObject;
     bool lookingAtObject = false;
     bool flashingIn = true;
     bool startedFlashing = false;
 
+    private void Start()
+    {
+    }
 
     // Update is called once per frame
     void Update()
@@ -32,6 +35,7 @@ public class SelectedFlash : MonoBehaviour
             StartCoroutine(FlashObject());
 
         }
+        
     }
 
     private void OnTriggerExit()
@@ -40,6 +44,7 @@ public class SelectedFlash : MonoBehaviour
         lookingAtObject = false;
         StopCoroutine(FlashObject());
         GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 255);
+        
     }
 
     IEnumerator FlashObject()

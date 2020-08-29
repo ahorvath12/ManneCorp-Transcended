@@ -29,7 +29,6 @@ public class LookAtCamera : MonoBehaviour
             singleStep = speed * Time.deltaTime;
             newDirection = Vector3.RotateTowards(transform.forward, targetDirection, .1f, 0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
-
         }
     }
 }
