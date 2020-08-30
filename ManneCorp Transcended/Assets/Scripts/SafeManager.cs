@@ -12,7 +12,7 @@ public class SafeManager : MonoBehaviour
 
     private Animator anim;
     private bool isNear, hasReadNote, openCode, pressedButton, opened;
-    private string inputCode;
+    private string inputCode = "";
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +33,6 @@ public class SafeManager : MonoBehaviour
             if (openCode)
             {
                 safeCodeUI.SetActive(pressedButton);
-                if (!pressedButton)
-                {
-
-                }
             }
 
             if (hasReadNote)
@@ -48,6 +44,7 @@ public class SafeManager : MonoBehaviour
             {
                 safeNote.SetActive(true);
                 hasReadNote = true;
+                GameObject.Find("Lines").GetComponent<DetectiveVoiceManager>().SayLine(1);
             }
             
         }
@@ -106,11 +103,19 @@ public class SafeManager : MonoBehaviour
         {
             anim.SetTrigger("open");
             cassette.SetActive(true);
-            opened = true;
+            player.GetComponent<FirstPersonController>().enabled = true;
+            safeCodeUI.SetActive(false);
+            safeCodeUI = null;
             foreach (Transform child in transform)
             {
                 child.gameObject.GetComponent<SelectedFlash>().enabled = false;
             }
+            GetComponent<SafeManager>().enabled = false;
+        }
+        else if (inputCode.Length > 4)
+        {
+            inputCode = "";
+            codeText.GetComponent<Text>().text = "";
         }
 
     }

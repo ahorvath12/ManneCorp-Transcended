@@ -14,7 +14,7 @@ public class FarFromEntrance : MonoBehaviour
         if (!hasSaidLine && Vector3.Distance(transform.position, player.transform.position) > 10)
         {
             hasSaidLine = true;
-            lineCanvas.GetComponent<DetectiveVoiceManager>().sayLine = true;
+            lineCanvas.GetComponent<DetectiveVoiceManager>().SayLine(0);
         }
     }
 }

@@ -7,11 +7,9 @@ public class DetectiveVoiceManager : MonoBehaviour
 {
     public GameObject[] subs;
     public AudioClip[] lines;
-    public bool sayLine;
 
     private AudioSource audioSource;
-    private int index = 0;
-    private bool hasSaidLine;
+    private int index;
 
     // Start is called before the first frame update
     void Start()
@@ -19,23 +17,20 @@ public class DetectiveVoiceManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (sayLine)
-        {
-            sayLine = false;
-            subs[index].GetComponent<Text>().enabled = true;
-            audioSource.clip = lines[index];
-            audioSource.Play();
-            hasSaidLine = true;
-        }
-        if (!audioSource.isPlaying && hasSaidLine)
+        if (!audioSource.isPlaying)
         {
             subs[index].GetComponent<Text>().enabled = false;
-            hasSaidLine = false;
-            index++;
         }
+    }
+
+
+    public void SayLine(int i) {
+        subs[i].GetComponent<Text>().enabled = true;
+        audioSource.clip = lines[i];
+        audioSource.Play();
+        index = i;
     }
 
 

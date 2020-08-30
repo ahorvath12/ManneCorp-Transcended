@@ -10,6 +10,7 @@ public class PickUpItem : MonoBehaviour
     public bool pickUp;
 
     private GameObject pressE;
+    private bool isNear;
 
     private void Start()
     {
@@ -19,8 +20,9 @@ public class PickUpItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pickUp && Input.GetKeyDown("e")) {
-            pickUp = false;
+        if (isNear && Input.GetKeyDown("e")) {
+            isNear = false;
+            pickUp = true;
             GetComponent<AudioSource>().Play();
             GetComponent<Collider>().enabled = false;
             GetComponent<SelectedFlash>().enabled = false;
@@ -36,13 +38,13 @@ public class PickUpItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        pickUp = true;
+        isNear = true;
         pressE.GetComponent<Text>().enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        pickUp = false;
+        isNear = false;
         pressE.GetComponent<Text>().enabled = false;
     }
 }
