@@ -25,6 +25,7 @@ public class ReactToTape : MonoBehaviour
         {
             lines.GetComponent<DetectiveVoiceManager>().SayLine(2);
             hasSaidLine = true;
+            Debug.Log("say line");
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DoorController : MonoBehaviour
 {
     public bool locked = false;
-    public GameObject player, pressE;
+    public GameObject player, pressE, lockedText;
 
     private Animator anim;
     bool canOpen = false, isOpen = false;
@@ -17,6 +17,7 @@ public class DoorController : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.speed = 1.5f;
         pressE = GameObject.Find("PressE");
+        lockedText = GameObject.Find("LockedDoor");
     }
 
     // Update is called once per frame
@@ -31,6 +32,11 @@ public class DoorController : MonoBehaviour
                 pressE.GetComponent<Text>().enabled = false;
                 GetComponent<AudioSource>().Play();
             }
+        }
+        if (canOpen && locked && Input.GetKeyDown("e"))
+        {
+            pressE.GetComponent<Text>().enabled = false;
+            lockedText.GetComponent<Text>().enabled = true;
         }
     }
 
@@ -49,6 +55,7 @@ public class DoorController : MonoBehaviour
         {
             canOpen = false;
             pressE.GetComponent<Text>().enabled = false;
+            lockedText.GetComponent<Text>().enabled = false;
 
         }
     }

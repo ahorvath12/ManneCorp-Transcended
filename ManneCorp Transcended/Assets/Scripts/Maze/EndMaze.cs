@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EndMaze : MonoBehaviour
 {
-    public GameObject player, maze, house;
+    public GameObject player, maze, house, lines, door;
 
-    private float waitTime = 3.5f, lastTimeChecked;
-    private bool canEnd;
+    private float waitTime = 5f, lastTimeChecked;
+    private bool canEnd, sayLine;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +21,21 @@ public class EndMaze : MonoBehaviour
         if (canEnd && HasTimePassed())
         {
             player.GetComponent<FadeToBlack>().AbruptAppear();
+            
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
             maze.SetActive(false);
             house.GetComponent<HideHouse>().Return();
+            canEnd = false;
+            sayLine = true;
+            door.GetComponent<LeaveHouse>().canEnd = true;
+            lastTimeChecked = Time.time;
+        }
+
+        if (sayLine && HasTimePassed())
+        {
+            lines.GetComponent<DetectiveVoiceManager>().SayLine(8);
+            sayLine = false;
         }
     }
 

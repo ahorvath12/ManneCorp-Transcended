@@ -7,10 +7,14 @@ public class PickUpItem : MonoBehaviour
 {
     public bool unlocksDoor;
     public GameObject door;
-    public bool pickUp;
+    public bool pickUp, displayText;
+    public string textToShow;
+    public GameObject text;
 
     private GameObject pressE;
     private bool isNear;
+
+    private float waitTime = 2, lastTimeChecked;
 
     private void Start()
     {
@@ -29,10 +33,23 @@ public class PickUpItem : MonoBehaviour
             GetComponent<Renderer>().enabled = false;
             pressE.GetComponent<Text>().enabled = false;
 
+            if (displayText)
+            {
+                text.GetComponent<Text>().text = textToShow;
+                text.GetComponent<Text>().enabled = true;
+                lastTimeChecked = Time.time;
+            }
+
             if (unlocksDoor)
             {
                 door.GetComponent<DoorController>().locked = false;
             }
+        } 
+
+        if (pickUp && displayText && HasTimePassed())
+        {
+            text.GetComponent<Text>().enabled = false;
+            displayText = false;
         } 
     }
 
@@ -46,5 +63,10 @@ public class PickUpItem : MonoBehaviour
     {
         isNear = false;
         pressE.GetComponent<Text>().enabled = false;
+    }
+
+    private bool HasTimePassed()
+    {
+        return Time.time - lastTimeChecked > waitTime;
     }
 }

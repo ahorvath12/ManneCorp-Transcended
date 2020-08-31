@@ -31,14 +31,16 @@ public class EndLoopingRoom : MonoBehaviour
                 foreach (GameObject go in revealWithTag)
                 {
                     go.SetActive(true);
+                    Debug.Log(go.name);
                 }
                 pressE.GetComponent<Text>().enabled = false;
-                room.SetActive(false);
+                Debug.Log("set room unactive");
                 player.GetComponent<FadeToBlack>().AbruptAppear();
                 player.transform.position = placeholder.transform.position;
                 player.transform.rotation = placeholder.transform.rotation;
                 GameObject.Find("house").GetComponent<HideHouse>().Return();
-                
+                GameObject.Find("KidsRoomPlaceholder").GetComponent<CloseLoopingRoom>().hide = true;
+
             }
             else if (!end && Input.GetKeyDown("e"))
             {

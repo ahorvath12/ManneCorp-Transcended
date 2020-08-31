@@ -8,6 +8,7 @@ public class DollController : MonoBehaviour
     public GameObject player;
     public GameObject meshGO;
     public AudioClip[] clips;
+    public bool canMove = false;
 
     private Animator anim;
     private NavMeshAgent agent;
@@ -15,8 +16,14 @@ public class DollController : MonoBehaviour
     private Vector3 startingPos, curPos, lastPos;
     private Quaternion startingRot;
     private Renderer rend;
-    bool canMove = false;
     int pose;
+
+    private void Awake()
+    {
+        startingPos = gameObject.transform.position;
+        startingRot = gameObject.transform.rotation;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +31,8 @@ public class DollController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rend = meshGO.GetComponent<Renderer>();
         audioSource = GetComponent<AudioSource>();
+
+        
     }
 
     // Update is called once per frame
@@ -54,6 +63,12 @@ public class DollController : MonoBehaviour
                 audioSource.Play();
             }
         }
+
+        if (rend.isVisible && Input.GetKeyDown(KeyCode.Space))
+        {
+            ReturnToOrigin();
+            GetComponent<NavMeshAgent>().enabled = true;
+        }
     }
 
     public void StartMoving()
@@ -64,14 +79,18 @@ public class DollController : MonoBehaviour
 
     public void ReturnToOrigin()
     {
-
+        transform.position = startingPos;
+        transform.rotation = startingRot;
+        canMove = false;
+        anim.SetTrigger("returnToOrigin");
+        GetComponent<NavMeshAgent>().enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.gameObject == player && !rend.isVisible && canMove)
         {
-            Debug.Log("killed player");
+            GameObject.Find("BasementPlaceholder").GetComponent<RestartBasement>().Restart();
         }
     }
 }

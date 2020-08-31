@@ -8,8 +8,8 @@ public class StartNextRoom : MonoBehaviour
     public GameObject hideAtStart;
 
     private GameObject player;
-    private bool openDoor;
-    private float timeNeeded, lastTimeChecked;
+    private bool openDoor, shownText;
+    private float timeNeeded = 3f, lastTimeChecked;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,13 @@ public class StartNextRoom : MonoBehaviour
             openDoor = false;
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<AudioSource>().Play();
+            lastTimeChecked = Time.time;
+        }
+        
+        else if (HasTimePassed() && shownText)
+        {
+            GameObject.Find("PressSpace").GetComponent<Text>().enabled = false;
+
         }
     }
 
@@ -53,6 +60,15 @@ public class StartNextRoom : MonoBehaviour
         GetComponent<Animator>().SetBool("open", false);
         hideAtStart.SetActive(true);
         GameObject.Find("house").GetComponent<HideHouse>().Hide();
+
+        shownText = true;
+        GameObject.Find("PressSpace").GetComponent<Text>().enabled = true;
+        lastTimeChecked = Time.time;
     }
     
+
+    private bool HasTimePassed()
+    {
+        return Time.time - lastTimeChecked > timeNeeded;
+    }
 }

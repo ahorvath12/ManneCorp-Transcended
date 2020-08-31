@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartMaze : MonoBehaviour
 {
-    public GameObject maze, meshGO, card;
+    public GameObject maze, meshGO, card, note;
     public string roomTag1, roomTag2, roomTag3;
     public bool startMaze;
 
@@ -16,6 +16,7 @@ public class StartMaze : MonoBehaviour
     void Start()
     {
         rend = meshGO.GetComponent<Renderer>();
+        note = GameObject.Find("Reverse");
 
         hideWithTag1 = GameObject.FindGameObjectsWithTag(roomTag1);
         hideWithTag2 = GameObject.FindGameObjectsWithTag(roomTag2);
@@ -33,6 +34,7 @@ public class StartMaze : MonoBehaviour
 
         if (isNear && Input.GetKeyDown("e") && open)
         {
+            GetComponent<Animator>().SetBool("open", true);
             foreach (GameObject mannequin in GameObject.Find("Basement").GetComponent<BasementController>().mannequins)
             {
                 mannequin.GetComponent<DollController>().ReturnToOrigin();
@@ -65,8 +67,11 @@ public class StartMaze : MonoBehaviour
                 go.SetActive(true);
 
             GameObject.Find("house").GetComponent<HideHouse>().Hide();
-            mazeOpened = false;
+            note.GetComponent<ShowInstructions>().ShowText();
+            GetComponent<StartMaze>().enabled = false;
+
         }
+
     }
 
     private void OnTriggerEnter(Collider other)

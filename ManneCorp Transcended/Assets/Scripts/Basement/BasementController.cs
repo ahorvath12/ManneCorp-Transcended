@@ -22,7 +22,7 @@ public class BasementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(card.GetComponent<PickUpItem>().pickUp)
+        if(card.GetComponent<ReadCard>().putDown)
         {
             StartMoving();
         }

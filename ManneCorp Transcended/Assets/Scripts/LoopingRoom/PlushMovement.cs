@@ -36,12 +36,10 @@ public class PlushMovement : MonoBehaviour
             {
                 ReturnToOrigin();
             }
-            audioSource.Stop();
         }
         else
         {
             audioSource.clip = clips[Random.Range(0, clips.Length)];
-            audioSource.Play();
             agent.isStopped = false;
             agent.SetDestination(player.transform.position);
         }

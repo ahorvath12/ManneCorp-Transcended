@@ -9,6 +9,7 @@ TagManager:
   - SueDoll
   - HideForHall
   - HideForMaze
+  - Tape
   layers:
   - Default
   - TransparentFX

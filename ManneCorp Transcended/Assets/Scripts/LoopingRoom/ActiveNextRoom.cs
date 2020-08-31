@@ -10,6 +10,7 @@ public class ActiveNextRoom : MonoBehaviour
     private PickUpItem pickUpScript;
     private Renderer rend;
     private GameObject[] hideWithTag;
+    private bool activated;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +25,10 @@ public class ActiveNextRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pickUpScript.pickUp && rend.isVisible) {
+        if (pickUpScript.pickUp && !activated) {
+            activated = true;
             room.SetActive(true);
+            Debug.Log("set up room");
 
             foreach (GameObject go in hideWithTag)
                 go.SetActive(false);

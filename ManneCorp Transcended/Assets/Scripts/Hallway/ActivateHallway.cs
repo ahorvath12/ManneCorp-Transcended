@@ -10,6 +10,7 @@ public class ActivateHallway : MonoBehaviour
     private PickUpItem pickUpScript;
     private Renderer rend;
     private GameObject[] hideWithTag1, hideWithTag2, hideWithTag3;
+    private bool activated;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,9 @@ public class ActivateHallway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pickUpScript.pickUp)
+        if (pickUpScript.pickUp && !activated)
         {
+            activated = true;
             room.SetActive(true);
 
             foreach (GameObject go in hideWithTag1)

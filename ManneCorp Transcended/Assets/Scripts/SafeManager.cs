@@ -99,7 +99,7 @@ public class SafeManager : MonoBehaviour
             codeText.GetComponent<Text>().text = "";
         }
 
-        if(inputCode == code)
+        if(inputCode == code && !locked)
         {
             anim.SetTrigger("open");
             cassette.SetActive(true);

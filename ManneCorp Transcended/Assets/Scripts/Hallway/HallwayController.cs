@@ -101,6 +101,7 @@ public class HallwayController : MonoBehaviour
     private void BreakNextLight(int index)
     {
         lights[count].GetComponent<Light>().enabled = false;
+        lights[count].GetComponent<AudioSource>().Play(); ;
     }
 
     private bool TimeToBreak()

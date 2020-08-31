@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class PlaceItemOnAltar : MonoBehaviour
 {
-    public GameObject pressE, emptyInv, symbol, orb, placeholder;
+    public GameObject pressE, emptyInv, symbol, orb, placeholder, lines;
     public GameObject blood, book, flesh;
 
 
-    private bool isClose, hasBlood, hasFlesh, hasBook;
+    private bool isClose, hasBlood, hasFlesh, hasBook, timeToSay, hasSaidLine;
     private int count = 0;
 
     // Start is called before the first frame update
@@ -52,8 +52,19 @@ public class PlaceItemOnAltar : MonoBehaviour
             }
         }
 
-        if (count == 3)
+        
+
+        if (count >= 3 && !timeToSay)
         {
+            lines.GetComponent<DetectiveVoiceManager>().SayLine(7);
+            hasSaidLine = true;
+            timeToSay = true;
+            count++;
+        }
+
+        if (hasSaidLine && !lines.GetComponent<AudioSource>().isPlaying)
+        {
+            hasSaidLine = false;
             symbol.SetActive(true);
             GetComponent<AudioSource>().Play();
             orb.GetComponent<WanderingAI>().enabled = false;
@@ -61,6 +72,8 @@ public class PlaceItemOnAltar : MonoBehaviour
             placeholder.GetComponent<EndMaze>().End();
             count++;
         }
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -79,18 +92,16 @@ public class PlaceItemOnAltar : MonoBehaviour
     public void HasBlood()
     {
         hasBlood = true;
-        Debug.Log("has blood");
     }
 
     public void HasFlesh()
     {
         hasFlesh = true;
-        Debug.Log("has flesh");
     }
 
     public void HasBook()
     {
         hasBook = true;
-        Debug.Log("has book");
+
     }
 }
