@@ -21,8 +21,11 @@ public class ReactToMannequin : MonoBehaviour
     {
         if (!hasSaidLine && rend.isVisible && Vector3.Distance(transform.position, player.transform.position) <= 5)
         {
-            lines.GetComponent<DetectiveVoiceManager>().SayLine(4);
-            hasSaidLine = true;
+            if (Vector3.Distance(transform.position, player.transform.position) <= 5)
+            {
+                lines.GetComponent<DetectiveVoiceManager>().SayLine(4);
+                hasSaidLine = true;
+            }
         }
     }
 }

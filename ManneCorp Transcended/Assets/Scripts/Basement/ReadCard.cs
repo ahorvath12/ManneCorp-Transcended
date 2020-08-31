@@ -28,7 +28,7 @@ public class ReadCard : MonoBehaviour
             safe.GetComponent<SafeManager>().locked = false;
         }
 
-        if (hasSeen && Input.GetKeyDown("e"))
+        else if (hasSeen && Input.GetKeyDown("e"))
         {
             putDown = true;
             cardUI.SetActive(false);

@@ -8,6 +8,7 @@ public class BasementController : MonoBehaviour
     public GameObject[] mannequins;
 
     private Animator[] dollAnimators;
+    private ReadCard readCard;
     private int dollIndex = 4;
     // Start is called before the first frame update
     void Start()
@@ -17,12 +18,13 @@ public class BasementController : MonoBehaviour
         {
             dollAnimators[i] = mannequins[i].GetComponent<Animator>();
         }
+        readCard = card.GetComponent<ReadCard>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(card.GetComponent<ReadCard>().putDown)
+        if(readCard.putDown)
         {
             StartMoving();
         }

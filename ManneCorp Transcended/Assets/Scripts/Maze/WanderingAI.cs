@@ -11,7 +11,7 @@ public class WanderingAI : MonoBehaviour
     public GameObject player;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
-    public GameObject placeholder;
+    public GameObject placeholder, lines;
 
     private Transform target;
     private Vector3 lastSeenPos;
@@ -93,6 +93,8 @@ public class WanderingAI : MonoBehaviour
             player.GetComponent<FadeToBlack>().AbruptAppear();
             player.transform.position = placeholder.transform.position;
             player.transform.rotation = placeholder.transform.rotation;
+            lines.GetComponent<DetectiveVoiceManager>().SayLine(6);
+            
         }
     }
 

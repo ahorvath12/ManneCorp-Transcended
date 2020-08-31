@@ -10,6 +10,7 @@ public class PlaceItemOnAltar : MonoBehaviour
 
 
     private bool isClose, hasBlood, hasFlesh, hasBook, timeToSay, hasSaidLine;
+    bool item1, item2, item3;
     private int count = 0;
 
     // Start is called before the first frame update
@@ -35,18 +36,21 @@ public class PlaceItemOnAltar : MonoBehaviour
             if (hasBlood)
             {
                 hasBlood = false;
+                item1 = true;
                 blood.SetActive(true);
                 count++;
             }
             if (hasBook)
             {
                 hasBook = false;
+                item2 = true;
                 book.SetActive(true);
                 count++;
             }
             if (hasFlesh)
             {
                 hasFlesh = false;
+                item3 = true;
                 flesh.SetActive(true);
                 count++;
             }
@@ -54,7 +58,7 @@ public class PlaceItemOnAltar : MonoBehaviour
 
         
 
-        if (count >= 3 && !timeToSay)
+        if (item1 && item2 && item3 && !timeToSay)
         {
             lines.GetComponent<DetectiveVoiceManager>().SayLine(7);
             hasSaidLine = true;
