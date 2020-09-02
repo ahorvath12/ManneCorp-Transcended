@@ -10,7 +10,7 @@ public class HallwayController : MonoBehaviour
     public GameObject[] lights;
 
     int count;
-    float movementSpeed = 0.1f, timeBreak = 15, timeInterval = 0.5f, timeStart, lastTimeChecked;
+    float movementSpeed = 0.1f, timeBreak = 25, timeInterval = 0.5f, timeStart, lastTimeChecked;
     bool moveWalls, turnOffLights, timeToStart, restart;
     Vector3 initialLocation, wallLLocation, wallRLocation;
     Quaternion initialRotation;

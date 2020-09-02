@@ -24,6 +24,7 @@ public class StartNextRoom : MonoBehaviour
         if (openDoor && Input.GetKeyDown("e"))
         {
             GetComponent<Animator>().SetBool("open", openDoor);
+            GameObject.Find("PressE").GetComponent<Text>().enabled = false;
             openDoor = false;
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<AudioSource>().Play();

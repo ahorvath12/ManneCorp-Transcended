@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CasetteSubs : MonoBehaviour
 {
@@ -29,14 +30,14 @@ public class CasetteSubs : MonoBehaviour
     {
         index = i;
         subs[index].SetActive(true);
-        skipText.SetActive(true);
+        skipText.GetComponent<Text>().enabled = true;
         show = true;
     }
 
     public void HideText(int i)
     {
         subs[i].SetActive(false);
-        skipText.SetActive(false);
+        skipText.GetComponent<Text>().enabled = false;
         show = false;
     }
 }
