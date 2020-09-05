@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class PlushMovement : MonoBehaviour
 {
     public GameObject player;
+    public GameObject flash;
     public AudioClip[] clips;
 
     private Renderer rend;
@@ -21,6 +22,8 @@ public class PlushMovement : MonoBehaviour
         startingRot = transform.rotation;
 
         player = GameObject.FindWithTag("Player");
+        flash = GameObject.Find("Flash");
+
         rend = GetComponent<Renderer>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
@@ -32,7 +35,7 @@ public class PlushMovement : MonoBehaviour
         if (rend.isVisible)
         {
             agent.isStopped = true;
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyDown("space") && flash.GetComponent<Flashbang>().flash)
             {
                 ReturnToOrigin();
             }

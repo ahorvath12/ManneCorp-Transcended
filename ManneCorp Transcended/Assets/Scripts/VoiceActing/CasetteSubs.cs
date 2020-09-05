@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class CasetteSubs : MonoBehaviour
 {
     public GameObject[] subs;
-    public GameObject skipText;
+    public bool show;
 
     int index = 0;
-    bool show;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +22,7 @@ public class CasetteSubs : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && show == true)
         {
             HideText(index);
+            show = false;
         }
     }
 
@@ -30,14 +30,11 @@ public class CasetteSubs : MonoBehaviour
     {
         index = i;
         subs[index].SetActive(true);
-        skipText.GetComponent<Text>().enabled = true;
         show = true;
     }
 
     public void HideText(int i)
     {
         subs[i].SetActive(false);
-        skipText.GetComponent<Text>().enabled = false;
-        show = false;
     }
 }

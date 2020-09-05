@@ -6,12 +6,14 @@ public class ExitBasement : MonoBehaviour
 {
     public GameObject card, lines;
 
+    public GameObject[] mannequins;
+
     private bool isNear, hasSaidLine;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        mannequins = GameObject.FindGameObjectsWithTag("Mannequin");
     }
 
     // Update is called once per frame
@@ -21,6 +23,11 @@ public class ExitBasement : MonoBehaviour
         {
             lines.GetComponent<DetectiveVoiceManager>().SayLine(5);
             hasSaidLine = true;
+
+            foreach (GameObject go in mannequins)
+            {
+                go.GetComponent<DollController>().enabled = false;
+            }
         }
     }
 

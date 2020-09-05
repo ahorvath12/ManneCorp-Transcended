@@ -10,6 +10,7 @@ TagManager:
   - HideForHall
   - HideForMaze
   - Tape
+  - Mannequin
   layers:
   - Default
   - TransparentFX

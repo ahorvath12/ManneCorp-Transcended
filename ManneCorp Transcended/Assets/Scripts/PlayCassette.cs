@@ -9,7 +9,7 @@ public class PlayCassette : MonoBehaviour
     public int index;
 
     private PickUpItem pickUp;
-    bool hasShown;
+    bool hasShown, hide;
 
     // Start is called before the first frame update
     void Start()

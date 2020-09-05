@@ -31,7 +31,6 @@ public class EndLoopingRoom : MonoBehaviour
                 foreach (GameObject go in revealWithTag)
                 {
                     go.SetActive(true);
-                    Debug.Log(go.name);
                 }
                 pressE.GetComponent<Text>().enabled = false;
                 Debug.Log("set room unactive");

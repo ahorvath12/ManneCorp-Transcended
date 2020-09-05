@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Flashbang : MonoBehaviour
 {
+    public bool flash;
+
     private Image panel;
     private float waitTime = 4 , lastTimeChecked;
     private bool fade;
@@ -27,6 +29,7 @@ public class Flashbang : MonoBehaviour
             alpha -= step;
             Debug.Log(alpha);
             panel.color = new Color32(255, 255, 255, (byte) alpha);
+            flash = false;
         }
         else if (Input.GetKeyDown(KeyCode.Space) && HasTimePassed())
         {
@@ -36,7 +39,7 @@ public class Flashbang : MonoBehaviour
         }
     }
 
-    private bool HasTimePassed()
+    public bool HasTimePassed()
     {
         return Time.time - lastTimeChecked > waitTime;
     }
@@ -48,5 +51,6 @@ public class Flashbang : MonoBehaviour
         panel.color = new Color32(255, 255, 255, 255);
         GetComponent<AudioSource>().Play();
         fade = true;
+        flash = true;
     }
 }

@@ -28,7 +28,6 @@ public class ActiveNextRoom : MonoBehaviour
         if (pickUpScript.pickUp && !activated) {
             activated = true;
             room.SetActive(true);
-            Debug.Log("set up room");
 
             foreach (GameObject go in hideWithTag)
                 go.SetActive(false);

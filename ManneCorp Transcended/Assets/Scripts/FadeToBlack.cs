@@ -9,6 +9,7 @@ public class FadeToBlack : MonoBehaviour
 
     private Image panel;
     private bool reappear;
+    private int step = 1, alpha;
 
     // Start is called before the first frame update
     void Start()
@@ -19,17 +20,21 @@ public class FadeToBlack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (reappear && panel.color.a > 0)
+        if (alpha > 0)
         {
-            panel.GetComponent<Image>().CrossFadeAlpha(0, 4f, false);
-            reappear = false;
+            alpha -= step;
+            Debug.Log(alpha);
+            panel.color = new Color32(0, 0, 0, (byte)alpha);
+            Debug.Log("Screen disapepar");
         }
 
     }
 
     public void AbruptAppear()
     {
+        Debug.Log("screen appear)");
         panel.color = new Color32(0, 0, 0, 255);
+        alpha = 255;
         Debug.Log("Appear");
         reappear = true;
     }

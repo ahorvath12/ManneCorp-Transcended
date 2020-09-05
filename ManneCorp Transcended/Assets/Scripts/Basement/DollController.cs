@@ -7,6 +7,7 @@ public class DollController : MonoBehaviour
 {
     public GameObject player;
     public GameObject meshGO;
+    public GameObject flash;
     public AudioClip[] clips;
     public bool canMove = false;
 
@@ -31,6 +32,8 @@ public class DollController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rend = meshGO.GetComponent<Renderer>();
         audioSource = GetComponent<AudioSource>();
+
+        flash = GameObject.Find("Flash");
 
         
     }
@@ -64,7 +67,7 @@ public class DollController : MonoBehaviour
             }
         }
 
-        if (rend.isVisible && Input.GetKeyDown(KeyCode.Space))
+        if (rend.isVisible && Input.GetKeyDown(KeyCode.Space) && flash.GetComponent<Flashbang>().flash)
         {
             ReturnToOrigin();
             GetComponent<NavMeshAgent>().enabled = true;

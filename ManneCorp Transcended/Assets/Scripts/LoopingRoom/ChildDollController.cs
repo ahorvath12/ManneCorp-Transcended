@@ -7,6 +7,7 @@ public class ChildDollController : MonoBehaviour
 {
     public GameObject player;
     public GameObject meshGO;
+    public GameObject flash;
     public AudioClip[] clips;
     
     private NavMeshAgent agent;
@@ -23,6 +24,8 @@ public class ChildDollController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         startingPos = transform.position;
         startingRot = transform.rotation;
+
+        flash = GameObject.Find("Flash");
         
         agent = GetComponent<NavMeshAgent>();
         rend = meshGO.GetComponent<Renderer>();
@@ -36,9 +39,9 @@ public class ChildDollController : MonoBehaviour
         if (rend.isVisible)
         {
             agent.isStopped = true;
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyDown("space") && flash.GetComponent<Flashbang>().flash)
             {
-                audioSource.Stop();
+                //audioSource.Stop();
                 ReturnToOrigin();
             }
             if (!canMove)
@@ -47,7 +50,7 @@ public class ChildDollController : MonoBehaviour
         else
         {
             audioSource.clip = clips[Random.Range(0, clips.Length)];
-            audioSource.Play();
+            //audioSource.Play();
             agent.isStopped = false;
             agent.SetDestination(player.transform.position);
         }
