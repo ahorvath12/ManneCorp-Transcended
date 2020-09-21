@@ -39,7 +39,6 @@ public class RestartBasement : MonoBehaviour
         card.GetComponent<Renderer>().enabled = true;
         card.GetComponent<PickUpItem>().pickUp = false;
         card.GetComponent<ReadCard>().hasSeen = false;
-
-        safe.GetComponent<SafeManager>().locked = true;
+        
     }
 }

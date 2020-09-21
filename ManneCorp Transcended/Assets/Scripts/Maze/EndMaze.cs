@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndMaze : MonoBehaviour
 {
-    public GameObject player, maze, house, lines, door;
+    public GameObject player, maze, house, lines, door, pressE;
 
     private float waitTime = 5f, lastTimeChecked;
     private bool canEnd, sayLine;
@@ -30,6 +31,7 @@ public class EndMaze : MonoBehaviour
             sayLine = true;
             door.GetComponent<LeaveHouse>().canEnd = true;
             lastTimeChecked = Time.time;
+            pressE.GetComponent<Text>().enabled = false;
         }
 
         if (sayLine && HasTimePassed())
